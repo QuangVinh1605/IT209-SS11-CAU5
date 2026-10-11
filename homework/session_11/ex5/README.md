@@ -158,32 +158,20 @@ jobs:
 ## 5. Hướng dẫn thử nghiệm và kiểm chứng (Verification)
 
 ### Kịch bản 1: Kiểm tra luồng xanh hoàn chỉnh (Success)
-1. Đẩy mã nguồn hiện tại lên GitHub:
-   ```bash
-   git push origin main
-   ```
-2. Truy cập tab **Actions** -> Xem biểu đồ Workflow.
-3. **Kết quả quan sát:**
-   - Xuất hiện mũi tên nối từ Job **`Run Gradle Tests & Package JAR`** sang Job **`Build and Push Docker Image`**.
-   - Cả hai job lần lượt chuyển sang màu xanh (:white_check_mark: Success).
-   - Docker image được đẩy thành công lên mục **Packages** của tài khoản GitHub.
+- **Workflow Run:** [Run #38144185077 (Success)](https://github.com/QuangVinh1605/IT209-SS11-CAU5/actions/runs/38144185077)
+- **Kết quả thực tế:**
+  - `Run Gradle Tests & Package JAR` -> **Success** :white_check_mark: (46s)
+  - `Build and Push Docker Image` -> **Success** :white_check_mark: (28s)
+  - **Sơ đồ biểu đồ Workflow:** Xuất hiện mũi tên nối từ Job `test` sang Job `docker-build`, cả 2 node đều xanh lá cây.
+  - **Artifacts:** Đã upload thành công `app-jar`.
+  - **Docker Image:** Đã đẩy thành công lên `ghcr.io/quangvinh1605/it209-ss11-cau5:latest`.
 
 ### Kịch bản 2: Cố tình làm đứt JUnit Test để kiểm chứng trạng thái Skipped
-1. Mở file test [`src/test/java/com/example/demo/DemoApplicationTests.java`](file:///src/test/java/com/example/demo/DemoApplicationTests.java).
-2. Sửa dòng assertion để test bị sai, ví dụ:
-   ```java
-   // Đổi "OK" thành "FAIL" để cố tình gây lỗi
-   assertEquals("FAIL", result, "Cố tình làm hỏng test case");
-   ```
-3. Commit và push code:
-   ```bash
-   git commit -am "test: deliberate failure to verify skipped job"
-   git push origin main
-   ```
-4. Quan sát tab **Actions**:
-   - Job `test`: Báo đỏ (:x: Failure).
-   - Job `docker-build`: Hiển thị icon tròn màu xám gạch ngang và ghi chú trạng thái **`Skipped`**.
-   - Không có bất kỳ Docker Image lỗi nào bị đẩy lên `ghcr.io`.
+- **Workflow Run:** [Run #38144338254 (Test Failed -> docker-build Skipped)](https://github.com/QuangVinh1605/IT209-SS11-CAU5/actions/runs/38144338254)
+- **Kết quả thực tế:**
+  - `Run Gradle Tests & Package JAR` -> **Failure** :x: (do JUnit test assert thất bại theo kịch bản kiểm thử)
+  - `Build and Push Docker Image` -> **Skipped** :heavy_minus_sign: (Icon màu xám, hoàn toàn không được chạy)
+  - **Xác nhận:** Từ khóa `needs: test` đã hoạt động chính xác 100%, bảo vệ hệ thống không bao giờ đóng gói mã nguồn lỗi thành Docker Image.
 
 ---
 
