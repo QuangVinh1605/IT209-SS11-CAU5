@@ -132,3 +132,10 @@ jobs:
     └── test/java/com/example/demo/
         └── DemoApplicationTests.java                    # Bộ kiểm thử JUnit 5
 ```
+
+---
+
+## 4. Minh Chứng Thực Hiện
+- **Ảnh biểu đồ Workflow 2 Jobs kết nối thành công qua `needs: test`:**
+  ![Workflow DAG Success](homework/session_11/ex5/screenshots/workflow_dag_success.png)
+

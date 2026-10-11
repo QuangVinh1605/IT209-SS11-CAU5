@@ -185,4 +185,6 @@ jobs:
    - [`src/main/java/com/example/demo/DemoApplication.java`](file:///src/main/java/com/example/demo/DemoApplication.java).
    - [`src/test/java/com/example/demo/DemoApplicationTests.java`](file:///src/test/java/com/example/demo/DemoApplicationTests.java).
 5. **Ảnh chụp màn hình minh chứng:**
-   - Ảnh chụp biểu đồ Workflow trên tab Actions hiển thị sơ đồ 2 Job kết nối bằng mũi tên thành công.
+   - **Ảnh biểu đồ Workflow 2 Jobs kết nối bằng mũi tên thành công (`needs: test`):**
+     ![Workflow DAG Success](screenshots/workflow_dag_success.png)
+
