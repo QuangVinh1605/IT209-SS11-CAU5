@@ -23,10 +23,11 @@ class DemoApplicationTests {
     }
 
     @Test
-    @DisplayName("Kiểm tra API Health trả về OK")
+    @DisplayName("Kiểm tra API Health trả về OK (Cố tình làm fail để kiểm chứng)")
     void testHealthEndpoint() {
         String result = helloController.health();
-        assertEquals("OK", result, "Health endpoint phải trả về chuỗi 'OK'");
+        // Cố tình gán kỳ vọng là FAIL để kiểm chứng Job test báo đỏ và Job docker-build chuyển sang Skipped
+        assertEquals("FAIL_TRIGGER_SKIPPED", result, "Cố tình làm đứt JUnit Test để kiểm chứng needs: test");
     }
 
     @Test
